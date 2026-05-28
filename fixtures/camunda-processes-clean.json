@@ -1,0 +1,66 @@
+{
+  "processes": [
+    {
+      "id": "CPG-5001",
+      "process": "Benefits case distribution",
+      "journey": "Intake to policy confirmation",
+      "platform": "Camunda 8",
+      "owner": "Workflow Governance",
+      "status": "ON_TRACK",
+      "workflowHealthy": true,
+      "hoursToCheckpoint": 36,
+      "packet": "Approval and SLA packet",
+      "excerpt": "All governance evidence is present and the task handoff packet is complete.",
+      "nextAction": "Hold for standard checkpoint signoff."
+    },
+    {
+      "id": "CPG-5002",
+      "process": "Loan-servicing exception workflow",
+      "journey": "Exception intake to compensating action",
+      "platform": "Camunda 7",
+      "owner": "Process Reliability",
+      "status": "ON_TRACK",
+      "workflowHealthy": true,
+      "hoursToCheckpoint": 30,
+      "packet": "Routing and timer packet",
+      "excerpt": "Timer evidence is clean and the fallback chronology is complete.",
+      "nextAction": "Keep the packet ready for scheduled checkpoint."
+    }
+  ],
+  "packets": [
+    {
+      "id": "PKT-900",
+      "processId": "CPG-5001",
+      "process": "Benefits case distribution",
+      "journey": "Intake to policy confirmation",
+      "platform": "Camunda 8",
+      "owner": "Workflow Governance",
+      "domain": "BPMN",
+      "kind": "Approval",
+      "severity": "low",
+      "status": "RESOLVED",
+      "scope": "Approval packet review",
+      "principal": "Approval packet",
+      "message": "Approval packet cleared review.",
+      "openedAt": "2026-05-20T10:00:00Z",
+      "dueAt": "2026-05-25T17:00:00Z"
+    },
+    {
+      "id": "PKT-901",
+      "processId": "CPG-5002",
+      "process": "Loan-servicing exception workflow",
+      "journey": "Exception intake to compensating action",
+      "platform": "Camunda 7",
+      "owner": "Process Reliability",
+      "domain": "SLA",
+      "kind": "Timer",
+      "severity": "low",
+      "status": "RESOLVED",
+      "scope": "Timer review",
+      "principal": "Timer attestation",
+      "message": "Timer packet cleared review.",
+      "openedAt": "2026-05-19T09:00:00Z",
+      "dueAt": "2026-05-24T17:00:00Z"
+    }
+  ]
+}
