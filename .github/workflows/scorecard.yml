@@ -37,6 +37,7 @@ jobs:
           persist-credentials: false
 
       - name: Run Scorecard
+        id: scorecard
         uses: ossf/scorecard-action@13ec8c77e8a5dae7e0a0d47bde3e3004df15d34f  # v2
         continue-on-error: true
         with:
@@ -47,12 +48,19 @@ jobs:
           # ("tuf: invalid key") independent of this repo's posture.
           publish_results: false
 
+      # Gated on the Scorecard step's own outcome: continue-on-error above
+      # means a soft-failed run (e.g. GitHub code-search 429 on the OSS-Fuzz
+      # check) still reports "success" to the job, which would otherwise let
+      # this step run against a partial/invalid results.sarif and fail here
+      # instead. Skip cleanly when Scorecard itself didn't complete.
       - name: Upload SARIF (so Security tab shows findings)
+        if: steps.scorecard.outcome == 'success'
         uses: github/codeql-action/upload-sarif@03e4368ac7daa2bd82b3e85262f3bf87ee112f57  # v3
         with:
           sarif_file: results.sarif
 
       - name: Upload artifact (raw JSON downloadable from the run)
+        if: steps.scorecard.outcome == 'success'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         with:
           name: SARIF file
